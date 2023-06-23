@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+//import 'antd/dist/antd.css'; <- 이거 할때마다 에러나서 일단 주석처리함. ㅊ
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
