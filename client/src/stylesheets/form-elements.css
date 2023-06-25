@@ -1,0 +1,25 @@
+input , select , textarea{
+    border: 1px solid #706f6f;
+    padding: 8px 10px;
+    width: 100%
+}
+
+input:focus , select:focus, textarea:focus{
+    border: 2px solid #262626;
+    outline: none;
+}
+
+.primary-contained-btn {
+    background-color: var(--primary);
+    color: white;
+    padding: 8px 20px;
+    text-transform: upperCase;
+}
+
+.primary-outlined-btn{
+    background-color:white;
+    color: var(--primary);
+    padding: 8px 20px;
+    text-transform: uppercase;
+    border: 1px solid var(--primary);
+}
