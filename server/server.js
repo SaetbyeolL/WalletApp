@@ -1,13 +1,15 @@
-const express = require('express');
+const express = require("express");
 const app = express();
 
-require('dotenv').config();
+require("dotenv").config();
+app.use(express.json());
+const dbConfig = require("./config/dbConfig");
+const usersRoute = require("./routes/usersRoute");
 
-const dbConfig = require('./config/dbConfig');
+app.use('/api/users', usersRoute);
 
 const PORT = process.env.PORT || 5000; // 3000 is running 'react app'
 
-app.listen(PORT, ()=>{
-    console.log(`Server started on port ${PORT}`);
+app.listen(PORT, () => {
+  console.log(`Server started on port ${PORT}`);
 });
-

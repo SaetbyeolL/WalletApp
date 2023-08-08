@@ -1,10 +1,22 @@
 import React from "react";
-import { Col, Form, Row } from "antd";
+import { Col, Form, Row, message } from "antd";
 import { useNavigate } from "react-router-dom";
+import {RegisterUser} from "../../apicalls/users";
+
 function Register() {
   const navigate = useNavigate();
-  const onFinish = (values) => {
-    console.log("Received values of form: ", values);
+  const onFinish = async(values) => {
+    try{
+      const response = await RegisterUser(values);
+      if (response.success) {
+        message.success(response.message);
+        navigate("/login");
+      } else {
+        message.error(response.message);
+      }
+    } catch(error){
+      message.error(error.message);
+    }
   };
 
   return (
@@ -13,7 +25,7 @@ function Register() {
         <h1 className="text-2xl">STELLAWALLET - REGISTER</h1>
 
         <h1 className="text-sm underline" onClick={() => navigate("/login")}>
-          You're Already a member, Please Log in.
+          If You're Already a member, Please Log in.
         </h1>
       </div>
       <hr />
@@ -35,7 +47,7 @@ function Register() {
             </Form.Item>
           </Col>
           <Col span={6}>
-            <Form.Item label="Mobile" name="mobileNumber">
+            <Form.Item label="Mobile" name="phoneNumber">
               <input type="text" />
             </Form.Item>
           </Col>

@@ -1,10 +1,21 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { Col, Form, Row } from "antd";
+import { Col, Form, Row, message } from "antd";
+import {LoginUser} from "../../apicalls/users";
+
 function Login() {
   const navigate = useNavigate();
-  const onFinish = (values) => {
-    console.log("Received values of form: ", values);
+  const onFinish = async (values) => {
+    try {
+      const response = await LoginUser(values);
+      if (response.success) {
+        message.success(response.message);
+      } else {
+        message.error(response.message);
+      }
+    } catch (error) {
+      message.error(error.message);
+    }
   };
 
   return (
@@ -34,9 +45,11 @@ function Login() {
           </button>
           <h1
             className="text-sm underline mt-2"
-            onClick={() => {navigate("/register");}}
+            onClick={() => {
+              navigate("/register");
+            }}
           >
-            You're Not a member, Click Here To Register
+            If You're Not a member, Click Here To Register
           </h1>
         </Form>
       </div>
