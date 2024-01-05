@@ -35,7 +35,9 @@ function ProtectedRoute(props) {
     }
   }, []);
 
-  return user && <div>{props.children}</div>;
+  return user && <div>
+    {user.email}
+    {props.children}</div>;
 }
 
 export default ProtectedRoute;
