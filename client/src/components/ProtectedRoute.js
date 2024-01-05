@@ -2,16 +2,19 @@ import React, { useEffect } from "react";
 import { message } from "antd";
 import { GetUserInfo } from "../apicalls/users";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { SetUser } from "../redux/usersSlice";
 
 function ProtectedRoute(props) {
-  const [userData, setUserData] = React.useState(null);
+  const {user} = useSelector(state=>state.users);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const getData = async () => {
     try {
       const response = await GetUserInfo();
       if (response.success) {
-        setUserData(response.data);
+        dispatch(SetUser(response.data));
       } else {
         message.error(response.message);
         navigate("/login");
@@ -24,7 +27,7 @@ function ProtectedRoute(props) {
 
   useEffect(() => {
     if (localStorage.getItem("token")) {
-      if (!userData) {
+      if (!user) {
         getData();
       }
     } else {
@@ -32,7 +35,7 @@ function ProtectedRoute(props) {
     }
   }, []);
 
-  return <div>{props.children}</div>;
+  return user && <div>{props.children}</div>;
 }
 
 export default ProtectedRoute;
