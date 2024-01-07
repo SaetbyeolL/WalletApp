@@ -1,5 +1,5 @@
 import React from "react";
-import { Button } from "antd";
+//import { Button } from "antd";
 import "./stylesheets/text-elements.css";
 import "./stylesheets/form-elements.css";
 import "./stylesheets/custom-components.css";
@@ -11,11 +11,15 @@ import Register from "./pages/Register";
 import Home from "./pages/Home";
 import ProtectedRoute from "./components/ProtectedRoute";
 import PublicRoute from "./components/PublicRoute";
-
+import Loader from "./components/Loader";
+import {useSelector} from "react-redux";
 
 function App() {
+  const {loading} = useSelector(state => state.loaders)
+
   return (
     <div>
+      {loading && <Loader />}
       <BrowserRouter>
         <Routes>
           <Route path="/login" element={<PublicRoute><Login /></PublicRoute>} />

@@ -4,6 +4,7 @@ import { GetUserInfo } from "../apicalls/users";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { SetUser } from "../redux/usersSlice";
+import { HideLoading, ShowLoading } from "../redux/loadersSlice";
 
 function ProtectedRoute(props) {
   const {user} = useSelector(state=>state.users);
@@ -12,7 +13,10 @@ function ProtectedRoute(props) {
 
   const getData = async () => {
     try {
+      dispatch(ShowLoading());
       const response = await GetUserInfo();
+      dispatch(HideLoading());
+
       if (response.success) {
         dispatch(SetUser(response.data));
       } else {
@@ -20,6 +24,7 @@ function ProtectedRoute(props) {
         navigate("/login");
       }
     } catch (error) {
+      dispatch(HideLoading());
       navigate("/login");
       message.error(error.message);
     }
@@ -33,7 +38,7 @@ function ProtectedRoute(props) {
     } else {
       navigate("/login");
     }
-  }, []);
+  },); // after ',' there was []
 
   return user && <div>
     {user.email}
