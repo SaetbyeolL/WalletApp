@@ -14,6 +14,7 @@ function Register() {
       dispatch(ShowLoading());
       const response = await RegisterUser(values);
       dispatch(HideLoading());
+      
       if (response.success) {
         message.success(response.message);
         navigate("/login");
