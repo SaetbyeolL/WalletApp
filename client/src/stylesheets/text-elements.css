@@ -32,7 +32,7 @@
 h1{
     padding-bottom: 0 !important;
     margin-bottom: 0 !important;
-}
+} /*sidebar쪽에 글자 살짝위치어긋난것 h1내용 지우면 똑바로됨*/
 
 i{
     font-size: 20px;
