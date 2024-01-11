@@ -3,6 +3,7 @@
     padding: 15px;
     height: 100vh;
     gap: 15px;
+    width: 100%;
 }
 
 .sidebar{
@@ -35,10 +36,8 @@
 } 없어도 활성화된 버튼 색깔 secondary컬러로 바뀜*/
 
 .active-menu-item{
-    border: 2px solid var(--secondary);
     border-radius: 3px;
     color: var(--secondary) !important;
-    padding: 5px 10px;
 }
 
 /* .active-menu-item h1{
@@ -58,7 +57,7 @@
 }
 
 .content{
-    padding: 15px;
+    padding-top: 15px;
 }
 
 
