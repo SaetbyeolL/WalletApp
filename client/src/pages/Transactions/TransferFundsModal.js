@@ -6,10 +6,12 @@ import {ShowLoading, HideLoading} from "../../redux/loadersSlice"
 
 
 function TransferFundsModal({showTransferFundsModal, setShowTransferFundsModal,reloadData}) {
-  const [isVerified, setIsVerified] = React.useState('');
+  const [isVerified, setIsVerified] = React.useState("");
   const [form] = Form.useForm();
   const dispatch = useDispatch();
+
   const verifyAccount = async()=> {
+    
     try{
         dispatch(ShowLoading());
         const response = await VerifyAccount({
@@ -25,7 +27,7 @@ function TransferFundsModal({showTransferFundsModal, setShowTransferFundsModal,r
         dispatch(HideLoading());
         setIsVerified("false");
     }
-  }
+  };
 
   return (
     <div>
@@ -36,8 +38,7 @@ function TransferFundsModal({showTransferFundsModal, setShowTransferFundsModal,r
         onClose={() => setShowTransferFundsModal(false)}
         footer={null}
       >
-        <Form layout="vertical"
-        form={form}>
+        <Form layout="vertical" form={form}>
           <div className="flex gap-2 items-center">
             <Form.Item label="Account Number" name="receiver" className="w-100">
               <input type="text" />
@@ -46,13 +47,13 @@ function TransferFundsModal({showTransferFundsModal, setShowTransferFundsModal,r
                 onClick={verifyAccount}
                 >VERIFY</button>
           </div>
+ 
 
           {isVerified==='true' && (
             <div className="success-bg">Account Verified successfully</div>
           )}
-
           {isVerified==='false' && (
-            <div className="error-bg">Invalid Account</div>
+            <div className="error-bg"> Invalid Account</div>
           )}
 
 

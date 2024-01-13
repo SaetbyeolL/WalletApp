@@ -4,8 +4,7 @@ import { Table } from "antd";
 import TransferFundsModal from "./TransferFundsModal";
 
 function Transactions() {
-  const [showTransferFundsModal, setShowTransferFundsModal] =
-    React.useState(false);
+  const [showTransferFundsModal, setShowTransferFundsModal] = React.useState("false");
 
   const columns = [
     {

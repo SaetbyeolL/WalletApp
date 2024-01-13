@@ -8,7 +8,7 @@ const usersRoute = require("./routes/usersRoute");
 const transactionsRoute = require("./routes/transactionRoute");
 
 app.use("/api/users", usersRoute);
-app.use("api/transactions", transactionsRoute);
+app.use("/api/transactions", transactionsRoute);
 
 const PORT = process.env.PORT || 5000; // 3000 is running 'react app'
 

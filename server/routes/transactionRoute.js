@@ -12,7 +12,7 @@ router.post("/transfer-fund", authMiddleware, async (req, res) => {
     await newTransaction.save();
 
     //decrease the sender's balance
-    await User.findByIndAndUpdate(req.body.sender, {
+    await User.findByIdAndUpdate(req.body.sender, {
       $inc: { balance: -req.body.amount },
     });
 
