@@ -26,7 +26,19 @@
     color : #000 !important;
 }
 
+.success-bg{
+    background-color: #107010 !important;
+    color: white !important;
+    padding: 10px;
+    border-radius: 3px;
+}
 
+.error-bg{
+    background-color: #d3391b !important;
+    color: white !important;
+    padding: 10px;
+    border-radius: 3px;
+}
 
 
 
