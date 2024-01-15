@@ -5,7 +5,7 @@ const User = require("../models/userModel");
 
 //transfer money from one account to another
 //authMiddleware: it checks user's authentication. if not passed, it cannot access transaction.
-router.post("/transfer-fund", authMiddleware, async (req, res) => {
+router.post("/transfer-funds", authMiddleware, async (req, res) => {
   try {
     //save the transaction
     const newTransaction = new Transaction(req.body);
