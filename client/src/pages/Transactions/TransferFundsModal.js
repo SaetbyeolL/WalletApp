@@ -58,13 +58,12 @@ function TransferFundsModal({showTransferFundsModal, setShowTransferFundsModal,r
       <Modal
         title="Transfer Funds"
         open={showTransferFundsModal}
+        visible={showTransferFundsModal}
         onCancel={()=> setShowTransferFundsModal(false)}
         onClose={() => setShowTransferFundsModal(false)}
         footer={null}
       >
-        <Form layout="vertical" form={form}
-        onFinish={onFinish}
-        >
+        <Form layout="vertical" form={form} onFinish={onFinish}>
           
           <div className="flex gap-2 items-center">
             <Form.Item label="Account Number" name="receiver" className="w-100">
@@ -97,8 +96,7 @@ function TransferFundsModal({showTransferFundsModal, setShowTransferFundsModal,r
               }
             ]}
           >
-            <input type="number" 
-            max={user.balance}/>
+            <input type="number" max={user.balance}/>
           </Form.Item>
 
           <Form.Item label="Reference" name="reference" >
