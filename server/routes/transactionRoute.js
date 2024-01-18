@@ -61,4 +61,28 @@ router.post("/verify-account", authMiddleware, async (req, res) => {
   }
 });
 
+//get all transactions for a user
+router.post(
+  "/get-all-transactions-by-user",
+  authMiddleware,
+  async (req, res) => {
+    try {
+      const transactions = await Transaction.find({
+        $or: [{ sender: req.body.userId }, { receiver: req.body.userId }],
+      }).sort({createdAt: -1}).populate("sender").populate("receiver"); //여기건들면서부터 거래내역 제대로 출력안됨. 12'부터
+      res.send({
+        message: "Transactions fetched",
+        data: transactions,
+        success: true,
+      })
+    } catch (error) {
+      res.send({
+        message: "Transactions not fetched",
+        data: error.message,
+        success: false,
+      });
+    }
+  }
+);
+
 module.exports = router;

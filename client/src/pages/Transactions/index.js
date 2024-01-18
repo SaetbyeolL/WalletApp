@@ -1,19 +1,30 @@
-import React from "react";
+import React, { useEffect } from "react";
 import PageTitle from "../../components/PageTitle";
-import { Table } from "antd";
+import { Table, message } from "antd";
 import TransferFundsModal from "./TransferFundsModal";
+import { useDispatch, useSelector } from "react-redux";
+import { HideLoading, ShowLoading } from "../../redux/loadersSlice";
+import { GetTransactionsOfUser } from "../../apicalls/transactions";
+import moment from "moment";
 
 function Transactions() {
-  const [showTransferFundsModal, setShowTransferFundsModal] = React.useState(false);
+  const [showTransferFundsModal, setShowTransferFundsModal] =
+    React.useState(false);
+  const [data = [], setData] = React.useState([]);
+  const dispatch = useDispatch();
+  const { user } = useSelector((state) => state.users);
 
   const columns = [
     {
       title: "Date",
       dataIndex: "date",
+      render: (text, record) => {
+        return moment(record.createdAt).format("DD-MM-YYYY hh:mm:ss A");
+      },
     },
     {
       title: "Transaction ID",
-      dataIndex: "TransactionId",
+      dataIndex: "_id",
     },
     {
       title: "Amount",
@@ -22,6 +33,28 @@ function Transactions() {
     {
       title: "Type",
       dataIndex: "type",
+      render: (text, record) => {
+        return record.sender._id === user._id ? "Debit" : "Credit";
+      },
+    },
+    {
+      title: "Reference Account",
+      dataIndex: "",
+      render: (text, record) => {
+        return record.sender._id === user._id ? (
+          <div>
+            <h1 className="text-sm">
+              {record.receiver.firstName} {record.receiver.lastName}
+            </h1>
+          </div>
+        ) : (
+          <div>
+            <h1 className="text-sm">
+              {record.sender.firstName} {record.sender.lastName}
+            </h1>
+          </div>
+        );
+      },
     },
     {
       title: "Reference",
@@ -32,6 +65,24 @@ function Transactions() {
       dataIndex: "status",
     },
   ];
+
+  const getData = async () => {
+    try {
+      dispatch(ShowLoading());
+      const response = await GetTransactionsOfUser();
+      if (response.success) {
+        setData(response.data);
+      }
+      dispatch(HideLoading());
+    } catch (error) {
+      dispatch(HideLoading());
+      message.error(error.message);
+    }
+  };
+
+  useEffect(() => {
+    getData();
+  }, []);
 
   return (
     <div>
@@ -44,15 +95,15 @@ function Transactions() {
             className="primary-contained-btn"
             onClick={() => setShowTransferFundsModal(true)}
           >
-            Transfer
+            Transfer{" "}
           </button>
         </div>
       </div>
 
-      <Table columns={columns} dataSource={[]} className="mt-2" />
+      <Table columns={columns} dataSource={data} className="mt-2" />
 
       {showTransferFundsModal && (
-        <TransferFundsModal 
+        <TransferFundsModal
           showTransferFundsModal={showTransferFundsModal}
           setShowTransferFundsModal={setShowTransferFundsModal}
         />

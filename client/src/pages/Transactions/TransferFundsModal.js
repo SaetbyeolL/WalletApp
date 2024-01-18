@@ -58,7 +58,6 @@ function TransferFundsModal({showTransferFundsModal, setShowTransferFundsModal,r
       <Modal
         title="Transfer Funds"
         open={showTransferFundsModal}
-        visible={showTransferFundsModal}
         onCancel={()=> setShowTransferFundsModal(false)}
         onClose={() => setShowTransferFundsModal(false)}
         footer={null}
