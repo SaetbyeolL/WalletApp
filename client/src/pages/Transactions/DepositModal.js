@@ -5,7 +5,7 @@ import { DepositFunds } from "../../apicalls/transactions";
 import { useDispatch } from "react-redux";
 import { HideLoading, ShowLoading } from "../../redux/loadersSlice";
 
-function DepositModal(showDepositModal, setShowDepositModal, reloadData) {
+function DepositModal({showDepositModal, setShowDepositModal, reloadData}) {
   const [form] = Form.useForm();
   const dispatch = useDispatch();
   const onToken = async (token) => {
