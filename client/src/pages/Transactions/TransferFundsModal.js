@@ -41,6 +41,7 @@ function TransferFundsModal({showTransferFundsModal, setShowTransferFundsModal,r
         };
       const response = await TransferFunds(payload);
       if(response.success){
+        reloadData();
         setShowTransferFundsModal(false);
         message.success(response.message);
       }else{

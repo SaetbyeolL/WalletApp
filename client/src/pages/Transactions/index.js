@@ -36,7 +36,11 @@ function Transactions() {
       title: "Type",
       dataIndex: "type",
       render: (text, record) => {
-        return record.sender._id === user._id ? "Debit" : "Credit";
+        if(record.sender._id === record.receiver._id){
+          return "Deposit"
+        } else if(record.sender._id === user._id){
+          return "Debit";
+        } else return "Credit";
       },
     },
     {
@@ -113,6 +117,7 @@ function Transactions() {
         <TransferFundsModal
           showTransferFundsModal={showTransferFundsModal}
           setShowTransferFundsModal={setShowTransferFundsModal}
+          reloadData={getData}
         />
       )}
 
@@ -120,6 +125,7 @@ function Transactions() {
         <DepositModal
           showDepositModal= {showDepositModal}
           setShowDepositModal= {setShowDepositModal}
+          reloadData={getData}
         />
       )}
     </div>
