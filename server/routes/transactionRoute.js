@@ -3,7 +3,9 @@ const Transaction = require("../models/transactionModel");
 const authMiddleware = require("../middlewares/authMiddleware");
 const User = require("../models/userModel");
 const stripe = require("stripe")(process.env.stripe_key);
-const {uuid} = require("uuidv4");
+// const {uuid} = require("uuidv4");
+const { v4: uuidv4 } = require('uuid');
+
 
 //transfer money from one account to another
 //authMiddleware: it checks user's authentication. if not passed, it cannot access transaction.
@@ -101,14 +103,14 @@ router.post("/deposit-funds", authMiddleware, async(req, res)=> {
     //create a charge
     const charge = await stripe.charges.create(
       {
-        amount: amount,
+        amount: amount * 100,
         currency: "usd",
         customer: customer.id,
         receipt_email: token.email,
         description: `Deposited to StellaWallet`
       },
       {
-        idempotencyKey: uuid(),
+        idempotencyKey: uuidv4(),
       }
     );
     
@@ -148,15 +150,5 @@ router.post("/deposit-funds", authMiddleware, async(req, res)=> {
     });
   }
 });
-
-
-
-
-
-
-
-
-
-
 
 module.exports = router;
