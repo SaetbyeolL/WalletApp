@@ -1,10 +1,16 @@
-import React from "react";
-import { Tabs } from "antd";
+import React, { useEffect } from "react";
+import { Tabs, message } from "antd";
 import PageTitle from "../../components/PageTitle";
+import NewRequestModal from "./NewRequestModal";
+import { GetAllRequestsByUser } from "../../apicalls/requests";
+import { HideLoading, ShowLoading } from "../../redux/loadersSlice";
+import { useDispatch } from "react-redux";
 const { TabPane } = Tabs;
 
 function Requests() {
-    const [data, setData] = React.useState([]);
+  const [data, setData] = React.useState([]);
+  const [showNewRequestModal, setShowNewRequestModal] = React.useState(false);
+  const dispatch = useDispatch();
 
   const columns = [
     {
@@ -29,11 +35,34 @@ function Requests() {
     },
   ];
 
+  const getData = async () => {
+    try {
+      dispatch(ShowLoading());
+      const response = await GetAllRequestsByUser();
+      if (response.success) {
+        setData(response.data);
+      }
+      dispatch(HideLoading());
+    } catch (error) {
+      dispatch(HideLoading());
+      message.error(error.message);
+    }
+  };
+
+  useEffect(() => {
+    getData();
+  }, []);
+
   return (
     <div>
       <div className="flex justify-between">
         <PageTitle title="Requests" />
-        <button className="primary-outlined-btn">Request Funds</button>
+        <button
+          className="primary-outlined-btn"
+          onClick={() => {setShowNewRequestModal(true)}}
+        >
+          Request Funds
+        </button>
       </div>
 
       <Tabs defaultActiveKey="1">
@@ -44,6 +73,13 @@ function Requests() {
           Received
         </TabPane>
       </Tabs>
+
+      {showNewRequestModal && (
+        <NewRequestModal
+          showNewRequestModal={showNewRequestModal}
+          setShowNewRequestModal={setShowNewRequestModal}
+        />
+      )}
     </div>
   );
 }

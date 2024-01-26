@@ -37,7 +37,7 @@ function App() {
             }
           />
           <Route
-            path="/Transactions"
+            path="/transactions"
             element={
               <ProtectedRoute>
                 <Transactions />
@@ -45,7 +45,7 @@ function App() {
             }
           />
           <Route
-            path="/Requests"
+            path="/requests"
             element={
               <ProtectedRoute>
                 <Requests />

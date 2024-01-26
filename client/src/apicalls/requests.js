@@ -1,10 +1,10 @@
-import { AxiosInstance, axiosInstance } from ".";
+import { axiosInstance } from ".";
 
 //get all requests for a user
 export const GetAllRequestsByUser = async () => {
   try {
-    const { data } = await AxiosInstance.post(
-      "/requests/get-all-requests-by-user"
+    const { data } = await axiosInstance.post(
+      "/api/requests/get-all-requests-by-user"
     );
     return data;
   } catch (error) {
@@ -16,7 +16,7 @@ export const GetAllRequestsByUser = async () => {
 export const SendRequest = async (request) => {
   try {
     const { data } = await axiosInstance.post(
-      "/requests/send-request",
+      "/api/requests/send-request",
       request
     );
     return data;
