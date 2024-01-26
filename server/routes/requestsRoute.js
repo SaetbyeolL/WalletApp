@@ -6,7 +6,7 @@ const authMiddleware = require("../middlewares/authMiddleware");
 router.post("/get-all-requests-by-user", authMiddleware, async (req, res) => {
   try {
     const requests = await Request.find({
-      $or: [{ sender: req.user._id }, { receiver: req.user._id }],
+      $or: [{ sender: req.body.userId }, { receiver: req.body.userId }],
     })
       .populate("sender")
       .populate("receiver");
