@@ -70,15 +70,6 @@ router.post("/update-request-status", authMiddleware, async (req, res) => {
       await User.findByIdAndUpdate(req.body.receiver._id, {
         $inc: { balance: -req.body.amount },
       });
-
-      //deduct the amount from the sender
-      await User.findByIdAndUpdate(req.body.sender._id, {
-        $inc: { balance: req.body.amount },
-      });
-      //add the amount to the receiver
-      await User.findByIdAndUpdate(req.body.receiver._id, {
-        $inc: { balance: -req.body.amount },
-      });
     }
     //update the request status
     await Request.findByIdAndUpdate(req.body._id, {
