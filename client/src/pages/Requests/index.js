@@ -36,7 +36,7 @@ function Requests() {
     }
   };
 
-  const UpdateStatus = async (record, status) => {
+  const updateStatus = async (record, status) => {
     try {
         dispatch(ShowLoading());
       const response = await UpdateRequestStatus({
@@ -99,13 +99,13 @@ function Requests() {
             <div className="flex gap-1">
               <h1
                 className="text-sm underline"
-                onClick={() => UpdateStatus(record, "rejected")}
+                onClick={() => updateStatus(record, "rejected")}
               >
                 Reject
               </h1>
               <h1
                 className="text-sm underline"
-                onClick={() => UpdateStatus(record, "Accepted")}
+                onClick={() => updateStatus(record, "accepted")}
               >
                 Accept
               </h1>
@@ -147,6 +147,7 @@ function Requests() {
         <NewRequestModal
           showNewRequestModal={showNewRequestModal}
           setShowNewRequestModal={setShowNewRequestModal}
+          reloadData = {getData}
         />
       )}
     </div>
