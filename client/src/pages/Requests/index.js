@@ -2,10 +2,14 @@ import React, { useEffect } from "react";
 import { Tabs, message, Table } from "antd";
 import PageTitle from "../../components/PageTitle";
 import NewRequestModal from "./NewRequestModal";
-import { GetAllRequestsByUser, UpdateRequestStatus } from "../../apicalls/requests";
+import {
+  GetAllRequestsByUser,
+  UpdateRequestStatus,
+} from "../../apicalls/requests";
 import { useDispatch, useSelector } from "react-redux";
 import { HideLoading, ShowLoading } from "../../redux/loadersSlice";
 import moment from "moment";
+import { ReloadUser } from "../../redux/usersSlice";
 const { TabPane } = Tabs;
 
 function Requests() {
@@ -38,17 +42,23 @@ function Requests() {
 
   const updateStatus = async (record, status) => {
     try {
-        dispatch(ShowLoading());
-      const response = await UpdateRequestStatus({
-        ...record,
-        status,
-      });
-      dispatch(HideLoading());
-      if(response.success) {
-        message.success(response.message);
-        getData();
+      if (status === "accepted" && record.amount > user.balance) {
+        message.error("Insufficient funds");
+        return;
       } else {
-        message.error(response.message);
+        dispatch(ShowLoading());
+        const response = await UpdateRequestStatus({
+          ...record,
+          status,
+        });
+        dispatch(HideLoading());
+        if (response.success) {
+          message.success(response.message);
+          getData();
+          dispatch(ReloadUser(true));
+        } else {
+          message.error(response.message);
+        }
       }
     } catch (error) {
       dispatch(HideLoading());
@@ -147,7 +157,7 @@ function Requests() {
         <NewRequestModal
           showNewRequestModal={showNewRequestModal}
           setShowNewRequestModal={setShowNewRequestModal}
-          reloadData = {getData}
+          reloadData={getData}
         />
       )}
     </div>

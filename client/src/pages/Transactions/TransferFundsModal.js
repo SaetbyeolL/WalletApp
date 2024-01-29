@@ -3,6 +3,7 @@ import { Modal, Form, message } from "antd";
 import { useDispatch, useSelector} from "react-redux";
 import { TransferFunds, VerifyAccount } from "../../apicalls/transactions";
 import { ShowLoading, HideLoading } from "../../redux/loadersSlice"
+import { ReloadUser } from "../../redux/usersSlice";
 
 
 function TransferFundsModal({showTransferFundsModal, setShowTransferFundsModal,reloadData}) {
@@ -44,6 +45,7 @@ function TransferFundsModal({showTransferFundsModal, setShowTransferFundsModal,r
         reloadData();
         setShowTransferFundsModal(false);
         message.success(response.message);
+        dispatch(ReloadUser(true));
       }else{
         message.error(response.message);
       }

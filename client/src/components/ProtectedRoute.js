@@ -3,12 +3,12 @@ import { message } from "antd";
 import { GetUserInfo } from "../apicalls/users";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { SetUser } from "../redux/usersSlice";
+import { SetUser, ReloadUser } from "../redux/usersSlice";
 import { HideLoading, ShowLoading } from "../redux/loadersSlice";
 import DefaultLayout from "./DefaultLayout";
 
 function ProtectedRoute(props) {
-  const {user} = useSelector(state=>state.users);
+  const {user, reloadUser} = useSelector(state=>state.users);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -24,6 +24,7 @@ function ProtectedRoute(props) {
         message.error(response.message);
         navigate("/login");
       }
+      dispatch(ReloadUser(false));
     } catch (error) {
       dispatch(HideLoading());
       navigate("/login");
@@ -40,6 +41,13 @@ function ProtectedRoute(props) {
       navigate("/login");
     }
   },); // after ',' there was []
+
+  useEffect(()=> {
+    if(reloadUser) {
+      getData();
+    }
+  }, [reloadUser]);
+
 
   return (
     user && (

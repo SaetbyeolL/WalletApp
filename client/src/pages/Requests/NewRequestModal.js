@@ -35,6 +35,12 @@ function NewRequestModal({
 
   const onFinish = async (values) => {
     try {
+
+      if(values.amount > user.balance) {
+        message.error("Insufficient funds");
+        return;
+      }
+
       dispatch(ShowLoading());
       const payload = {
         ...values,
