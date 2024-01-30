@@ -30,12 +30,12 @@ export const GetUserInfo = async () => {
   }
 };
 
-// get all users
-export const GetAllUsers = async () => {
+// get all users 
+export const GetAllUsers = async () => {  
   try {
     const { data } = await axiosInstance.get("/api/users/get-all-users");
     return data;
   } catch (error) {
     return error.response.data;
   }
-};
+}; 

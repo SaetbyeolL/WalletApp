@@ -51,7 +51,7 @@ function Users() {
   return (
     <div>
       <PageTitle title="Users" />
-      <Table dataSource={users} columns ={columns} className = 'mt-2'/>
+      <Table dataSource={users} columns={columns} className="mt-2" />
     </div>
   );
 }
