@@ -111,11 +111,11 @@ router.get("/get-all-users", authMiddleware, async (req, res) => {
       data: users,
       success: true,
     });
-  } catch (error) { 
+  } catch (error) {  
     res.send({
       message: error.message,
       success: false,
-    })
+    });
   }
 });
 

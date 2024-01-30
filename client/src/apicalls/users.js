@@ -37,5 +37,5 @@ export const GetAllUsers = async () => {
     return data;
   } catch (error) {
     return error.response.data;
-  }
+  }   
 }; 

@@ -54,6 +54,6 @@ function Users() {
       <Table dataSource={users} columns={columns} className="mt-2" />
     </div>
   );
-}
+}     
 
 export default Users;
