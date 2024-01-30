@@ -13,21 +13,35 @@ import Home from "./pages/Home";
 import ProtectedRoute from "./components/ProtectedRoute";
 import PublicRoute from "./components/PublicRoute";
 import Loader from "./components/Loader";
-import {useSelector} from "react-redux";
+import { useSelector } from "react-redux";
 import Transactions from "./pages/Transactions";
 import Requests from "./pages/Requests";
-
+import Users from "./pages/Users";
 
 function App() {
-  const {loading} = useSelector(state => state.loaders)
+  const { loading } = useSelector((state) => state.loaders);
 
   return (
     <div>
       {loading && <Loader />}
       <BrowserRouter>
         <Routes>
-          <Route path="/login" element={<PublicRoute><Login /></PublicRoute>} />
-          <Route path="/register" element={<PublicRoute><Register /></PublicRoute>} />
+          <Route
+            path="/login"
+            element={
+              <PublicRoute>
+                <Login />
+              </PublicRoute>
+            }
+          />
+          <Route
+            path="/register"
+            element={
+              <PublicRoute>
+                <Register />
+              </PublicRoute>
+            }
+          />
           <Route
             path="/"
             element={
@@ -52,6 +66,16 @@ function App() {
               </ProtectedRoute>
             }
           />
+
+          <Route
+            path="/users"
+            element={
+              <ProtectedRoute>
+                <Users />
+              </ProtectedRoute>
+            }
+          />
+
         </Routes>
       </BrowserRouter>
     </div>
