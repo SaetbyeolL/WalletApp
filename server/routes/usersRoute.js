@@ -111,12 +111,33 @@ router.get("/get-all-users", authMiddleware, async (req, res) => {
       data: users,
       success: true,
     });
-  } catch (error) {  
+  } catch (error) {
     res.send({
       message: error.message,
       success: false,
     });
   }
 });
+
+//Update user verified status
+router.post("/update-user-verified-status", authMiddleware, async (req, res) => {
+    try {
+      await User.findByIdAndUpdate(req.body.selectedUser, {
+        isVerified: req.body.isVerified,
+      });
+      res.send({
+        data: null,
+        message: "User verified status updated successfully",
+        success: true,
+      });
+    } catch (error) {
+      res.send({
+        data: error,
+        message: error.message,
+        success: false,
+      });
+    }
+  }
+);
 
 module.exports = router;

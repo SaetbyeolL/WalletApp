@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { GetAllUsers } from "../../apicalls/users";
+import { GetAllUsers, UpdateUserVerifiedStatus } from "../../apicalls/users";
 import { ShowLoading, HideLoading } from "../../redux/loadersSlice";
 import { Table, message } from "antd";
 import PageTitle from "../../components/PageTitle";
@@ -16,6 +16,26 @@ function Users() {
       dispatch(HideLoading());
       if (response.success) {
         setUsers(response.data);
+      } else {
+        message.error(response.message);
+      }
+    } catch (error) {
+      dispatch(HideLoading());
+      message.error(error.message);
+    }
+  };
+
+  const updateStatus = async (record, isVerified) => {
+    try {
+      dispatch(ShowLoading());
+      const response = await UpdateUserVerifiedStatus({
+        selectedUser: record._id,
+        isVerified,
+      });
+      dispatch(HideLoading());
+      if (response.success) {
+        message.success(response.message);
+        getData();
       } else {
         message.error(response.message);
       }
@@ -42,6 +62,32 @@ function Users() {
       title: "Phone",
       dataIndex: "phoneNumber",
     },
+    {
+      title: "Verified",
+      dataIndex: "isVerified",
+      render: (text, record) => {
+        return text ? "Yes" : "No";
+      },
+    },
+    {
+      title: "Actions",
+      dataIndex: "actions",
+      render: (text, record) => {
+        return (
+          <div className="flex gap-1">
+            {record.isVerified ? (
+              <button className="primary-outlined-btn"
+                onClick={()=> updateStatus(record, false)}
+              >Suspend</button>
+            ) : (
+              <button className="primary-outlined-btn"
+              onClick={()=> updateStatus(record, true)}
+              >Activate</button>
+            )}
+          </div>
+        );
+      },
+    },
   ];
 
   useEffect(() => {
@@ -54,6 +100,6 @@ function Users() {
       <Table dataSource={users} columns={columns} className="mt-2" />
     </div>
   );
-}     
+}
 
 export default Users;
