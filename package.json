@@ -9,11 +9,11 @@
   },
   "scripts": {
     "start": "node server/server.js",
-    "client": "npm start --prefix client",
     "dev": "concurrently \"npm run client\" \"npm start\"",
-    "build": "npm run build --prefix client",
     "predeploy": "npm run build",
-    "deploy": "cyclic deploy"
+    "deploy": "cyclic deploy",
+    "client": "cd client && react-scripts start",
+    "build": "cd client && react-scripts build"
   },
   "author": "",
   "license": "ISC",
