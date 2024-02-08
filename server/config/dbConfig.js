@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-mongoose.connect(process.env.mongo_url)
+mongoose.connect("mongodb+srv://saetbyeol:saetbyeol@appdatabase.jrbtgug.mongodb.net/wallet")
 
 const connectionResult = mongoose.connection;
 
