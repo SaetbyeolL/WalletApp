@@ -1,7 +1,7 @@
 import React from "react";
 import { Modal, Form, message } from "antd";
 import { useDispatch, useSelector } from "react-redux";
-import { TransferFunds, VerifyAccount } from "../../apicalls/transactions";
+import { VerifyAccount } from "../../apicalls/transactions";
 import { ShowLoading, HideLoading } from "../../redux/loadersSlice";
 import { SendRequest } from "../../apicalls/requests";
 
