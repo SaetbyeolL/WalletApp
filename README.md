@@ -1,6 +1,7 @@
 # WalletApp
-https://e-walletapp-507dfd72e9f2.herokuapp.com/
 - Personal account & payment management app
+  
+https://e-walletapp-507dfd72e9f2.herokuapp.com/
 
 - Languages: React.js, Node.js, Express.js, bcrypt.js, JWT, MongoDB                          
 - Functions: Deposit, Transfer, Request, Register, login, Admin
