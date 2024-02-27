@@ -1,5 +1,5 @@
 # WalletApp
-- Personal account & payment management app
+Personal account & payment management app
   
 https://e-walletapp-507dfd72e9f2.herokuapp.com/
 
